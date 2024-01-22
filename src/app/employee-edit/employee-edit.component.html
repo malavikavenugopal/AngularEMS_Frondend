@@ -1,0 +1,64 @@
+
+<style>
+    .background-radial-gradient {
+      background-color: hsl(218, 41%, 15%);
+      background-image: radial-gradient(650px circle at 0% 0%,
+          hsl(218, 41%, 35%) 15%,
+          hsl(218, 41%, 30%) 35%,
+          hsl(218, 41%, 20%) 75%,
+          hsl(218, 41%, 19%) 80%,
+          transparent 100%),
+        radial-gradient(1250px circle at 100% 100%,
+          hsl(218, 41%, 45%) 15%,
+          hsl(218, 41%, 30%) 35%,
+          hsl(218, 41%, 20%) 75%,
+          hsl(218, 41%, 19%) 80%,
+          transparent 100%);
+    }
+</style>
+    <div class="row " style="height: 88vh;">
+    <div class="col-lg-2 sidebar">
+
+        <div class=" d-flex justify-content-center align-items-center flex-column" style="height:100px;">
+            <a style='color: hsl(218, 81%, 75%)' href="/dashboard">
+                <h5>Home</h5>
+            </a>
+            <a style='color: hsl(218, 81%, 75%)' href="/employees">
+                <h5>Employee List</h5>
+            </a>
+        </div>
+
+    </div>
+    <div class="col-lg-10 p-5 d-flex justify-content-center align-items-center flex-column">
+
+        <h2 style="color: hsl(218, 81%, 75%);font-weight: bold;">Edit Employee Details</h2>
+
+        <div class="card background-radial-gradient  px-5 py-5">
+
+
+            <input class="form-control mt-3" style="width:500px" type="number" placeholder="Employee ID" name="empId" [(ngModel)] ="employee.id"   disabled />
+           
+
+            <input class="form-control mt-3" style="width:500px" placeholder="Employee Name"   name="empName" [(ngModel)] ="employee.name" required pattern="^[a-zA-Z]{3,}$" #empName="ngModel"  />
+            <p *ngIf="empName.invalid && empName.touched" style="font-size: 12px;" class="text-danger">Invalid Name</p>
+           
+            <input class="form-control mt-3" style="width:500px" placeholder="Email"  name="empEmail" [(ngModel)] ="employee.email" required #empEmail="ngModel" />
+            <p *ngIf="empEmail.invalid && empEmail.touched" style="font-size: 12px;" class="text-danger">Invalid Email</p>
+
+            <div class="form-floating mt-3">
+                <select id="select" class="form-select" aria-label="floating label select example" name="empStatus" [(ngModel)] ="employee.status" required #empStatus="ngModel">
+                    <option selected></option>
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
+                </select>
+                <label for="select">Select</label>
+            </div>
+            <p *ngIf="empStatus.invalid && empStatus.touched" style="font-size: 12px;" class="text-danger">Invalid Status</p>
+            <div class="d-flex mt-5">
+                <button (click)="cancelbutton(employee.id)" class="btn btn-warning me-3 text-light">Cancel</button>
+                <button  (click)="editEmployee(employee.id)" class="btn text-light" style="background-color: hsl(218, 41%, 15%);" >Edit</button>
+            </div>
+        </div>
+
+    </div>
+</div>

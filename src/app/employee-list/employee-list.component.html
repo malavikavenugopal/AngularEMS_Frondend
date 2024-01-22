@@ -1,0 +1,90 @@
+<div class="row "  style="min-height: 500px;">
+    <div class="col-lg-2 sidebar">
+
+        <div class=" d-flex justify-content-center align-items-center flex-column" style="height:100px;">
+            <a style='color: hsl(218, 81%, 75%)' href="/dashboard">
+                <h5>Home</h5>
+            </a>
+            <a style='color: hsl(218, 81%, 75%)' href="/employees">
+                <h5>Employee List</h5>
+            </a>
+        </div>
+
+    </div>
+    <div class="col-lg-10 p-5">
+        <div class="d-flex justify-content-between">
+            <h1>Employees List</h1>
+            <button routerLink="/employee/add" class="btn btn-outline-dark"><i class="fa-solid fa-user-plus"></i>
+                Add</button>
+        </div>
+
+
+
+        <div class="d-flex justify-content-between mt-4 ">
+
+            <div class="d-flex w-75">
+                <input type="text" name="search" [(ngModel)]="searchkey" class="form-control me-2"
+                    placeholder="Username">
+                <div class="dropdown w-100">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">Sort</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" (click)="sortbyId()"> by Id</a></li>
+                        <li><a class="dropdown-item" (click)="sortbyName()">by Name</a></li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <div>
+                <!-- generating  -->
+                <button (click)="generatePdf()" class="btn btn-success">Export</button>
+            </div>
+        </div>
+
+        <div class="m-5">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Employee ID</th>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--  mapping -->
+                    <tr *ngFor="let employee of employeeDetails | search : searchkey | paginate:{
+                        itemsPerPage: 5,
+                        currentPage: p 
+                    }" [hidden]="employee.id=='1'">
+                        <th scope="row">{{employee.id}}</th>
+                        <td>{{employee.name}}</td>
+                        <td>{{employee.email}}</td>
+                        <!--  attribute styling -->
+                        <td><span
+                                [ngClass]="employee.status=='1'?'btn btn-success':'btn btn-warning'">{{employee.status=="1"?"Active":"InActive"}}</span>
+                        </td>
+                        <td>
+                            <button routerLink="/employee/edit/{{employee.id}}" class="btn"><i
+                                    class="fa-solid fa-pen-to-square text-success"></i></button>
+                            <button (click)="deleteEmployee(employee.id)" class="btn px-3"><i
+                                    class="fa-solid fa-trash text-danger"></i></button>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+
+            <pagination-controls  class="mt-5" style="background-color: azure;"
+             (pageChange)="p=$event">
+            </pagination-controls>
+        </div>
+
+
+
+    </div>
+</div>
