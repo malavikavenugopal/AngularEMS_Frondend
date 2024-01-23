@@ -18,7 +18,7 @@ export class AdminapiService {
    this.sharedData.next(data)
   }
 
-  server_URL = "http://localhost:3000"
+  server_URL = "https://ems-backend-ueh0.onrender.com"
 
 
   authorization() {
@@ -38,11 +38,9 @@ export class AdminapiService {
     return this.http.delete(`${this.server_URL}/employee/${id}`)
   }
 
-  
   getEmployeeApi(id: any) {
     return this.http.get(`${this.server_URL}/employee/${id}`)
   }
-
 
   updateEmployeeAPi(id:any,employee:any){
     return this.http.put(`${this.server_URL}/employee/${id}`,employee)
@@ -51,6 +49,5 @@ export class AdminapiService {
   updateAdminapi(admin:any){
     return  this.http.put(`${this.server_URL}/employee/1`,admin)
   }
-
 
 }

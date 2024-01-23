@@ -116,14 +116,14 @@ export class DashboardComponent implements OnInit {
       console.log(res);
       this.adminDetails = res
 
-      if(res.picture){
-        this.profileImage=res.picture
+      if (res.picture) {
+        this.profileImage = res.picture
       }
-  
+
     })
 
 
-   
+
   }
 
   employeeCount: number = 0
@@ -148,7 +148,7 @@ export class DashboardComponent implements OnInit {
   edit() {
     this.editAdminStatus = true
   }
- 
+
   getFile(event: any) {
     let fileDetails = event.target.files[0]
     console.log(fileDetails);
@@ -157,44 +157,46 @@ export class DashboardComponent implements OnInit {
     //read
     fr.readAsDataURL(fileDetails)
 
-    fr.onload=(event:any)=>{
+    fr.onload = (event: any) => {
       console.log(event.target.result);
-      this.profileImage=event.target.result
+      this.profileImage = event.target.result
       this.adminDetails.picture = this.profileImage
-      
+
     }
   }
 
-  updateAdmin(){
+  updateAdmin() {
     this.api.updateAdminapi(this.adminDetails).subscribe({
-      next:(res:any)=>{
+      next: (res: any) => {
         console.log(res);
         Swal.fire({
           icon: "success",
           title: "Success...",
           text: `${this.adminDetails.name} Updated Successfully`,
-      
+
         });
-        localStorage.setItem("name",res.name)
-        localStorage.setItem("password",res.pass)
-       
+
+
+        localStorage.setItem("name", res.name)
+        localStorage.setItem("password", res.pass)
+
       },
-      error:(err:any)=>{
+      error: (err: any) => {
         console.log(err);
-        
+
       }
     })
   }
-  cancel(){
+  cancel() {
     this.api.authorization().subscribe((res: any) => {
       console.log(res);
       this.adminDetails = res
 
-      if(res.picture){
-        this.profileImage=res.picture
+      if (res.picture) {
+        this.profileImage = res.picture
       }
-  
+
     })
-    this.editAdminStatus= false
+    this.editAdminStatus = false
   }
 }
